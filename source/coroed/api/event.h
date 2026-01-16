@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdatomic.h>
+#include <stdbool.h>
 
 #include "coroed/api/task.h"
 

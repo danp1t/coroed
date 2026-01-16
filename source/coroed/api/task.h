@@ -25,6 +25,10 @@ typedef struct {
 
 typedef uthread_routine task_body;
 
+void task_yield(struct task* caller);
+void task_exit(struct task* caller);
+task_t task_submit(struct task* caller, uthread_routine entry, void* argument);
+
 /**
  * Инициализировать планировщик.
  *
