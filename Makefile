@@ -94,7 +94,7 @@ compile_commands.json: $(SRCS)
 		echo '    "file": "'$$src'"' >> $@; \
 		echo '  },' >> $@; \
 	done
-	@sed -i '$$s/,//' $@  # Удаляем последнюю запятую
+	@sed -i '$$s/,//' $@
 	@echo ']' >> $@
 
 bear: compile_commands.json
