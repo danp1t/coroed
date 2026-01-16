@@ -80,21 +80,6 @@ void tasks_print_statistics();
 void tasks_destroy();
 
 /**
- * Отдать управление планировщику, дать путь другим файберам.
- */
-void task_yield(struct task* caller);
-
-/**
- * Завершить работу файбера.
- */
-void task_exit(struct task* caller);
-
-/**
- * Создать дочерний файбер.
- */
-task_t task_submit(struct task* caller, uthread_routine entry, void* argument);
-
-/**
  * Объявить файбер. Используется в заголовочных файлах.
  */
 #define TASK_DECLARE(name, type, argument)                                 \

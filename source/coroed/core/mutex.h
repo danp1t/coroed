@@ -15,9 +15,9 @@ struct mutex_waiting_node {
 
 // Мьютекс, очередной примитив синхронизации
 // Используем его, потому что файберу нужен системный поток для исполнения
-// Из плюсов: Не тратим процессорное время, как на spinlock 
+// Из плюсов: Не тратим процессорное время, как на spinlock
 struct mutex {
-  atomic_bool locked;                      
+  atomic_bool locked;
   struct mutex_waiting_node* waiting_head;
   struct mutex_waiting_node* waiting_tail;
   struct spinlock lock;
@@ -26,8 +26,8 @@ struct mutex {
 // Инициализация мьютекса
 void mutex_init(struct mutex* mtx);
 
- // Функция для захвата мьютекса. 
- // Если мьютекс захвачен, то файбер блокируется и добавляется в очередь ожидания
+// Функция для захвата мьютекса.
+// Если мьютекс захвачен, то файбер блокируется и добавляется в очередь ожидания
 void mutex_lock(struct mutex* mtx, struct task* task);
 
 // Попробовать захватить мьютекс

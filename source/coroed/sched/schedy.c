@@ -18,9 +18,9 @@
 #include "uthread.h"
 
 enum {
-  SCHED_THREADS_LIMIT = 512, // Потолок по потокам
-  SCHED_WORKERS_COUNT = 8,   // "Количество ядер"
-  SCHED_NEXT_MAX_ATTEMPTS = 16, 
+  SCHED_THREADS_LIMIT = 512,  // Потолок по потокам
+  SCHED_WORKERS_COUNT = 8,    // "Количество ядер"
+  SCHED_NEXT_MAX_ATTEMPTS = 16,
 };
 
 struct task {
@@ -52,7 +52,8 @@ static struct rb_root runnable_tree = RB_ROOT;  // Наше красно-бел�
 static kthread_id_t kthread_ids[SCHED_WORKERS_COUNT];
 static struct worker workers[SCHED_WORKERS_COUNT];
 
-// Функция для выбора задачи, которую возьмут на cpu, то есть "кому справедливее будет отдать приоритет"
+// Функция для выбора задачи, которую возьмут на cpu, то есть "кому справедливее будет отдать
+// приоритет"
 static int task_compare(struct rb_node* a, struct rb_node* b) {
   struct task* task_a = rb_entry(a, struct task, rb_node);
   struct task* task_b = rb_entry(b, struct task, rb_node);
@@ -96,7 +97,7 @@ void sched_task_init(struct task* task) {
   task->thread = NULL;
   task->worker = NULL;
   task->state = TASK_ZOMBIE;
-  task->vruntime = 0; // Сколько на cpu выполнялась задача
+  task->vruntime = 0;  // Сколько на cpu выполнялась задача
   task->in_tree = false;
   memset(&task->rb_node, 0, sizeof(task->rb_node));
   spinlock_init(&task->lock);
@@ -292,7 +293,6 @@ task_t task_submit(struct task* caller, uthread_routine entry, void* argument) {
   return child;
 }
 
-
 /**
  * Цикл планировщика. Выполняется, пока есть задачи.
  */
@@ -381,7 +381,8 @@ void sched_task_unblock(struct task* task) {
     task->state = TASK_RUNNABLE;
 
     // Немного "скостим срок" задаче, чтобы она была выше по приориетету
-    // Тем самым повысим работоспособность системы, если основной упор делается на ввод-вывод, а не на вычисления (как Столингс учил) 
+    // Тем самым повысим работоспособность системы, если основной упор делается на ввод-вывод, а не
+    // на вычисления (как Столингс учил)
     if (task->vruntime > 1000) {
       task->vruntime -= 1000;
     }

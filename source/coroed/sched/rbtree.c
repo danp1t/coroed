@@ -25,8 +25,8 @@ void rb_insert(
   }
 
   // Вставляем новый узел
-  node->parent = parent; // Папа
-  node->left = node->right = NULL; // Дети мои...
+  node->parent = parent;            // Папа
+  node->left = node->right = NULL;  // Дети мои...
   node->color = RB_RED;
   *current = node;
 

@@ -35,7 +35,7 @@ for compiler in "${COMPILERS[@]}"; do
 
             pids=()
             for i in {1..8}; do
-                ./build/bin/app 1>/dev/null &
+                ./build/bin/main_app 1>/dev/null &
                 pids[${i}]=$!
                 echo "|- Running #$i (pid: ${pids[$i]})..."
             done
